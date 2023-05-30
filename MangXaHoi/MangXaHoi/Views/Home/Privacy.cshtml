@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+	Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+
+<div>
+	<div class="chat-head" >
+		<span class="status f-online"></span>
+		<h6>Bucky Barnes</h6>
+		<div class="more">
+			<div class="more-optns">
+				<i class="ti-more-alt"></i>
+				<ul>
+					<li>block chat</li>
+					<li>unblock chat</li>
+					<li>conversation</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div style="width: 700px; height: 400px;" class="chat-list">
+		<ul>
+			<li class="me">
+				<div class="chat-thumb"><img src="../Layout/images/resources/chatlist1.jpg" alt=""></div>
+				<div class="notification-event">
+					<span class="chat-message-item">
+						HI, Jack i have faced a problem with your software. are you available now, when i install this i have to received an error.
+					</span>
+					<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Today at 2:12pm</time></span>
+				</div>
+			</li>
+			<li class="you">
+				<div class="chat-thumb"><img src="../Layout/images/resources/chatlist2.jpg" alt=""></div>
+				<div class="notification-event">
+					<span class="chat-message-item">
+						Hi tina, Please let me know your purchase code, and show me the screnshot of error.
+					</span>
+					<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Today at 2:14pm</time></span>
+				</div>
+			</li>
+
+		</ul>
+		<form style="width: 700px;">
+			<textarea placeholder="Post enter to post..."></textarea>
+			<button type="submit">Submid</button>
+
+		</form>
+	</div>
+</div>

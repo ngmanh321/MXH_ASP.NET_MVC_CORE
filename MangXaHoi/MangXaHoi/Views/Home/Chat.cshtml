@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewData["Title"] = "Chat";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+@{
+	var tk = Context.Session.GetString("DN");
+	var tk1 = Context.Session.GetString("tk");
+	var avatar = Context.Session.GetString("Avatar");
+
+}
+
+
+
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Chat>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div>
+	<div class="chat-head">
+		<span class="status f-online"></span>
+		<h6>Bucky Barnes</h6>
+		<div class="more">
+			<div class="more-optns">
+				<i class="ti-more-alt"></i>
+				<ul>
+					<li>block chat</li>
+					<li>unblock chat</li>
+					<li>conversation</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div style="width: 700px; height: 400px;" class="chat-list">
+		<ul>
+			@foreach(var item in Model)
+			{
+				<li id="@item.Idchat" class="me">
+
+				</li>
+
+				<li class="you">
+					<div class="chat-thumb"><img src="../Layout/images/resources/chatlist2.jpg" alt=""></div>
+					<div class="notification-event">
+						<span style="float: right;" class="chat-message-item">
+							@item.NoiDung _ @item.Tknhan  _ @item.ViTri
+						</span>
+						<span class="notification-date"><time style="float: right;" datetime="2004-07-24T18:18" class="entry-date updated">Today at 2:14pm</time></span>
+					</div>
+				</li>
+
+				<li id="vt[@item.Idchat]" class="me">
+
+				</li>
+
+			}
+
+
+		</ul>
+
+		<form onsubmit="myFunction(event)" style="width: 700px;">
+			<textarea id="ndchat" placeholder="Post enter to post..."></textarea>
+			<button onclick="ThemChat()" type="submit">Submid</button>
+
+		</form>
+	</div>
+</div>
+
+<script>
+	var tk1 = '@tk1';
+
+	// Get Chat tu nguoi gui den minh
+	function GetChatFor(id ,tknhan ,vitri ) {
+		var str = '';
+		var str2= '';
+		var id1='' ;
+		var tkgui = '';
+			$.ajax({
+				type: 'GET',
+				url: 'https://localhost:7013/api/api6/' + vitri + '/' + tknhan,
+				dataType: 'json',
+				success: function (data) {
+					$.each(data, function (key, val) {
+						id1 = val.idchat ;
+						tkgui = val.tkgui;
+						if(id > id1 && tkgui == '@tk1'){
+							str += `
+								<div class="chat-thumb"><img src="../Layout/images/resources/chatlist1.jpg" alt=""></div>
+								<div class="notification-event">
+									<span class="chat-message-item">
+											${val.noiDung} - ${val.idchat}
+									</span>
+									<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Today at 2:12pm</time></span>
+								</div>
+								`
+						}
+					    if(id < id1 && tkgui == '@tk1') {
+							str2 += `
+								<div class="chat-thumb"><img src="../Layout/images/resources/chatlist1.jpg" alt=""></div>
+								<div class="notification-event">
+									<span class="chat-message-item">
+											${val.noiDung} - ${val.idchat}
+									</span>
+									<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Today at 2:12pm</time></span>
+								</div>
+									`
+						}
+					  
+
+
+
+					});
+					$('#'+id).html(str);
+					$('#vt\\[' + id + '\\]').html(str2);
+
+
+				},
+
+				Error: function (xhr) {
+					alert(xhr.resposeText)
+				},
+
+			});
+	}
+
+	function ThemChat() {
+		let formData = {
+			Tkgui: '@tk',
+			Tknhan : tk1,
+			NoiDung: $('#ndchat').val(),
+			AvatarGui: '@avatar',
+
+
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "https://localhost:7013/api/api6/",
+			data: JSON.stringify(formData),
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (response) {
+				location.reload();
+
+			},
+			error: function (request, status, error) {
+				alert(request.responseText);
+			},
+		});
+	}
+
+	function myFunction(event) {
+		event.preventDefault(); // ngăn chặn hành vi mặc định của form
+		// xử lý dữ liệu ở đây
+		return false; // ngăn chặn form gửi dữ liệu đi
+	}
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+@foreach (var item in Model)
+{
+	<script>
+		GetChatFor( @item.Idchat , '@item.Tkgui' , @item.ViTri);
+	</script>
+}
+

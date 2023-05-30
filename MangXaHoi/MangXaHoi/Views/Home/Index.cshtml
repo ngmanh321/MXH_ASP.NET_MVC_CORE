@@ -1,0 +1,940 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+}
+@{
+	var tk = Context.Session.GetString("DN");
+	var avatar = Context.Session.GetString("Avatar");
+
+}
+
+
+
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Post>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="col-lg-6">
+
+    <a asp-controller="Home" asp-action="Post">
+		<div class="central-meta postbox">
+		<span class="create-post">Create post</span>
+		<div>
+			<figure>
+				<img style="width: 45px; height: 45px;" src="@Url.Content("../Layout/images/"+ avatar)" alt="">
+			</figure>
+
+				<div class="newpst-input">
+					Share some what you are thinking?
+				</div>
+
+
+		</div>
+	</div><!-- add post new box -->
+    </a>
+	<div class="central-meta">
+		<span class="create-post">Recent Stories <a href="#" title="">See All</a></span>
+		<div class="story-postbox">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<div class="story-box">
+						<figure>
+							<img src="../Layout/images/resources/story-1.jpg" alt="">
+							<span>Add Your Story</span>
+						</figure>
+						<div class="story-thumb" data-toggle="tooltip" title="Add Your Story">
+							<i class="fa fa-plus"></i>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<div class="story-box">
+						<figure>
+							<img src="../Layout/images/resources/story-2.jpg" alt="">
+							<span>Adam James</span>
+						</figure>
+						<div class="story-thumb" data-toggle="tooltip" title="Adam James">
+							<img src="../Layout/images/resources/thumb-2.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<div class="story-box">
+						<figure>
+							<img src="../Layout/images/resources/story-3.jpg" alt="">
+							<span>Emily grey</span>
+						</figure>
+						<div class="story-thumb" data-toggle="tooltip" title="Emily grey">
+							<img src="../Layout/images/resources/thumb-3.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-3">
+					<div class="story-box">
+						<figure>
+							<img src="../Layout/images/resources/story-4.jpg" alt="">
+							<span>Jhon Deo</span>
+						</figure>
+						<div class="story-thumb" data-toggle="tooltip" title="Jhon Deo">
+							<img src="../Layout/images/resources/thumb-4.jpg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="stories-wraper">
+				<div class="status-story">
+					<span class="close-story"><i class="ti-close"></i></span>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="stories-users">
+								<h5>Stories</h5>
+								<div class="my-status">
+									<figure><img src="../Layout/images/resources/friend-avatar10.jpg" alt=""></figure>
+									<a href="#" title="" class="main-btn">Add New</a>
+									<div class="story-user">
+										<span>My Story</span>
+										<ins>No updates</ins>
+									</div>
+								</div>
+								<ul class="frnds-stories">
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar11.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Emily doll</span>
+											<ins>yesterday</ins>
+										</div>
+									</li>
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar15.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Jhon Borny</span>
+											<ins>3 days ago</ins>
+										</div>
+									</li>
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar12.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Sarah Khan</span>
+											<ins>2 days ago</ins>
+										</div>
+									</li>
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar13.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Zara Hayat</span>
+											<ins>1 day ago</ins>
+										</div>
+									</li>
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar14.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Zing Jang</span>
+											<ins>2 days ago</ins>
+										</div>
+									</li>
+
+									<li>
+										<figure><img src="../Layout/images/resources/friend-avatar16.jpg" alt=""></figure>
+										<div class="story-user">
+											<span>Emma watson</span>
+											<ins>jan,12 2020</ins>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div id="btns-wrapper"></div>
+							<div id="slideshow">
+								<img class="slide" src="https://placehold.it/856x380/FF6347/FFFFFF&amp;text=1" alt="11" />
+								<img class="slide" src="https://placehold.it/856x380/6FC6F7/FFFFFF&amp;text=2" alt="2" />
+								<img class="slide" src="https://placehold.it/856x380/f3e686/FFFFFF&amp;text=3" alt="3" />
+								<img class="slide" src="https://placehold.it/856x380/71eea3/FFFFFF&amp;text=4" alt="4" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- top stories -->
+	<div class="">
+
+		@foreach (var item in Model)
+		{
+
+			<div class="central-meta item">
+				<div class="user-post">
+					<div class="friend-info">
+						<figure>
+							<img style="width: 45px; height: 45px;" src="@Url.Content("../Layout/images/"+ item.Avatar)" alt="">
+						</figure>
+						<div class="friend-name">
+							<div class="more">
+								<div class="more-post-optns">
+									<i class="ti-more-alt"></i>
+									<ul>
+										<li><i class="fa fa-pencil-square-o"></i><a asp-action="SuaPost" asp-route-id="@item.Idpost">Edit Post</a></li>
+                                        <li><i class="fa fa-trash-o"></i><a asp-action="XoaPost" asp-route-id="@item.Idpost">Delete Post</a></li>
+										<li class="bad-report"><i class="fa fa-flag"></i>Report Post</li>
+										<li><i class="fa fa-address-card-o"></i>Boost This Post</li>
+										<li><i class="fa fa-clock-o"></i>Schedule Post</li>
+										<li><i class="fa fa-wpexplorer"></i>Select as featured</li>
+										<li><i class="fa fa-bell-slash-o"></i>Turn off Notifications</li>
+									</ul>
+								</div>
+							</div>
+							<ins><a asp-controller="Home" asp-action="TrangCaNhan" asp-route-taikhoan="@item.TaiKhoan" title="">@item.TaiKhoan</a>_ @item.Idpost Post Album</ins>
+							<span><i class="fa fa-globe"> @item.TrangThai </i> published: @item.NgayTao </span>
+						</div>
+						<div class="post-meta">
+							<p>
+								@item.NoiDung
+							</p>
+							<figure>
+								<div class="img-bunch">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<figure>
+												<a href="#" title="" data-toggle="modal" data-target="#img-comt">
+													<img src="@Url.Content("../Layout/images/"+ item.Anh)" alt="">
+												</a>
+											</figure>
+										</div>
+									</div>
+								</div>
+
+							</figure>
+							<div class="we-video-info">
+								<ul>
+									<li>
+										<span class="views" title="views">
+											<i class="fa fa-eye"></i>
+											<ins>1.2k</ins>
+										</span>
+									</li>
+									<li>
+										<div onclick="GetLike('@item.Idpost') ; ThemLike('@item.Idpost','@item.TaiKhoan')" id="btn[@item.Idpost]" style="cursor: pointer;" title="Like/Dislike">♡<span>Like</span></div>
+										<div onclick="GetLike('@item.Idpost') ;  XoaLike('@item.Idpost','@item.TaiKhoan')" id="btn[@item.Idpost]0" style="display:none;cursor: pointer;" title="Dislike/Like">♥<span>DisLike</span></div>
+
+									</li>
+									<li>
+										<span class="comment" title="Comments">
+											<i class="fa fa-commenting"></i>
+											<ins>52</ins>
+										</span>
+									</li>
+
+									<li>
+										<span>
+											<a onclick="GetShare('@item.Idpost')" class="share-pst" href="#" title="Share">
+												<i class="fa fa-share-alt"></i>
+											</a>
+											<ins>20</ins>
+										</span>
+									</li>
+								</ul>
+								<div class="users-thumb-list">
+									<a data-toggle="tooltip" title="Anderw" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-1.jpg">
+									</a>
+									<a data-toggle="tooltip" title="frank" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-2.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Sara" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-3.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Amy" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-4.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Ema" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-5.jpg">
+									</a>
+
+                                    <span><a asp-controller="Home" asp-action="Like" asp-route-tk="@item.Idpost">See more Like ++</a></span>
+								</div>
+							</div>
+						</div>
+						<div class="coment-area" style="display: block;">
+							<ul id="@item.Idpost" class="we-comet">
+							
+							</ul>
+							<ul class="we-comet">
+								<li>
+									<a href="#" title="" class="showmore underline">more comments+</a>
+								</li>
+								<li class="post-comment">
+									<div class="comet-avatar">
+										<img src="@Url.Content("../Layout/images/"+ avatar)" alt="">
+									</div>
+									<div>									
+									<form onsubmit="myFunction(event)">
+									<textarea id ="nd[@item.Idpost]" placeholder="Post your comment"></textarea>
+									<button onclick="ThemComment('@item.Idpost','@item.TaiKhoan')">Send</button>
+									</form>		
+
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- album post -->
+		}
+		<div id="display" class="central-meta item">
+			<span class="create-post">Best News</span>
+
+			@*DISPLAY*@
+		</div>
+		<div id="display1" class="central-meta item">
+			@*DISPLAY1*@
+		</div>
+	</div>
+</div><!-- centerl meta -->
+
+
+
+	<script>
+
+	function GetLike(id) {
+		var btn1 = document.getElementById("btn[" + id + "]");
+		var btn2 = document.getElementById("btn[" + id + "]0");
+		var str = '';
+
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api/' + '@tk' ,
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					str = val.idpost;
+					if (str == id) {
+						btn1.style.display = "none";
+						btn2.style.display = "block";
+					}
+				});
+
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	function ThemLike(id,tk) {
+		let formData = {
+			TaiKhoan: '@tk',
+			Idpost : id ,
+			Avatar: '@avatar',
+
+
+
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "https://localhost:7013/api/api/",
+			data: JSON.stringify(formData),
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (response) {
+				location.reload();
+
+			},
+			error: function (request, status, error) {
+				alert(request.responseText);
+			},
+		});
+	}
+
+	function XoaLike(id,tk) {
+
+        $.ajax({
+            type: "DELETE",
+			url: "https://localhost:7013/api/api/" + id +"/"+ '@tk',
+            dataType: "json",
+            success: function (response) {
+				location.reload();
+
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+        });
+    }
+
+	function ThemComment(id,tk) {
+		let formData = {
+			Idpost: id,
+			TaiKhoan: '@tk',
+			NoiDung: $('#nd\\[' + id + '\\]').val() ,
+			Avatar: '@avatar' ,
+
+
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "https://localhost:7013/api/api2/",
+			data: JSON.stringify(formData),
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (response) {
+				location.reload();
+
+			},
+			error: function (request, status, error) {
+				alert(request.responseText);
+			},
+		});
+	}
+
+	function GetComment(id) {
+		var str = '';
+
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api2/' + id,
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					str += `
+														<li>
+										<div class="comet-avatar">
+												<img src="../Layout/images/${val.avatar}" alt="">
+										</div>
+										<div class="we-comment">
+												<h5><a href="https://localhost:7013/Home/TrangCaNhan?taikhoan=${val.taiKhoan}" title="">${val.taiKhoan}</a></h5>
+											<p>
+													${val.noiDung}
+												<i class="em em-smiley"></i>
+											</p>
+											<div class="inline-itms">
+													<span>${val.ngayTao}</span>
+												<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+												<a href="#" title=""><i class="fa fa-heart"></i><span>20</span></a>
+											</div>
+										</div>
+									</li>
+
+						`
+
+
+				});
+				$('#' + id).html(str);
+
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	//phia gui yeu cau
+	function GetPostBy(tk){
+		var display = '';
+		var trangthai= '';
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api4/' + tk,
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					trangthai = val.trangThai;
+					if(trangthai == "Public"){
+						display += `
+				<div class="user-post">
+					<div class="friend-info">
+						<figure>
+							<img style="width: 45px; height: 45px;" src="../Layout/images/${val.avatar}" alt="">
+						</figure>
+						<div class="friend-name">
+							<div class="more">
+								<div class="more-post-optns">
+									<i class="ti-more-alt"></i>
+									<ul>
+										<li class="bad-report"><i class="fa fa-flag"></i>Report Post</li>
+										<li><i class="fa fa-address-card-o"></i>Boost This Post</li>
+										<li><i class="fa fa-clock-o"></i>Schedule Post</li>
+										<li><i class="fa fa-wpexplorer"></i>Select as featured</li>
+										<li><i class="fa fa-bell-slash-o"></i>Turn off Notifications</li>
+									</ul>
+								</div>
+							</div>
+							<ins><a href="https://localhost:7013/Home/TrangCaNhan?taikhoan=${val.taiKhoan}" title="">${val.taiKhoan}</a>_ ${val.idpost} Post Album</ins>
+							<span><i class="fa fa-globe"></i> published: ${val.ngayTao} </span>
+						</div>
+						<div class="post-meta">
+							<p>
+									${val.noiDung}
+							</p>
+							<figure>
+								<div class="img-bunch">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<figure>
+												<a href="#" title="" data-toggle="modal" data-target="#img-comt">
+													<img src="../Layout/images/${val.anh}" alt="">
+												</a>
+											</figure>
+										</div>
+									</div>
+								</div>
+
+							</figure>
+							<div class="we-video-info">
+								<ul>
+									<li>
+										<span class="views" title="views">
+											<i class="fa fa-eye"></i>
+											<ins>1.2k</ins>
+										</span>
+									</li>
+									<li>
+										<div onclick="GetLike('${val.idpost}') ; ThemLike('${val.idpost}','${val.taiKhoan}')" id="btn[${val.idpost}]" style="cursor: pointer;" title="Like/Dislike">♡<span>Like</span></div>
+										<div onclick="GetLike('${val.idpost}') ;  XoaLike('${val.idpost}','${val.taiKhoan}')" id="btn[${val.idpost}]0" style="display:none;cursor: pointer;" title="Dislike/Like">♥<span>DisLike</span></div>
+
+									</li>
+									<li>
+										<span class="comment" title="Comments">
+											<i class="fa fa-commenting"></i>
+											<ins>52</ins>
+										</span>
+									</li>
+
+									<li>
+										<span>
+											<a onclick="GetShare('${val.idpost}')" class="share-pst" title="Share">
+												<i class="fa fa-share-alt"></i>
+											</a>
+											<ins>20</ins>
+										</span>
+									</li>
+								</ul>
+								<div class="users-thumb-list">
+									<a data-toggle="tooltip" title="Anderw" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-1.jpg">
+									</a>
+									<a data-toggle="tooltip" title="frank" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-2.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Sara" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-3.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Amy" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-4.jpg">
+									</a>
+									<a data-toggle="tooltip" title="Ema" href="#">
+										<img alt="" src="../Layout/images/resources/userlist-5.jpg">
+									</a>
+
+										<span><a href="https://localhost:7013/Home/Like?tk=${val.idpost}">See more Like ++</a></span>
+								</div>
+							</div>
+						</div>
+						<div class="coment-area" style="display: block;">
+							<ul id="${val.idpost}" class="we-comet">
+							
+							</ul>
+							<ul class="we-comet">
+								<li>
+									<a href="#" title="" class="showmore underline">more comments+</a>
+								</li>
+								<li class="post-comment">
+									<div class="comet-avatar">
+										<img src=("../Layout/images/"+ avatar) alt="">
+									</div>
+									<div>									
+									<form onsubmit="myFunction(event)">
+										<textarea id ="nd[${val.idpost}]" placeholder="Post your comment"></textarea>
+										<button onclick="ThemComment('${val.idpost}','${val.taiKhoan}')">Send</button>
+									</form>		
+
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				`
+				}
+				GetComment(val.idpost);
+
+				setTimeout(function() {
+						GetLike(val.idpost);
+							console.log('Load GetLike(val.idpost)');
+					  }, 400);
+
+
+
+					
+				});
+				$('#display').append(display);
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	//phia nhan yeu cau
+	function GetPostBy1(tk) {
+		var display = '';
+		var trangthai = '';
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api4/' + tk,
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					trangthai = val.trangThai;
+					if(trangthai == "Public"){
+					display += `
+					<div class="user-post">
+						<div class="friend-info">
+							<figure>
+								<img style="width: 45px; height: 45px;" src="../Layout/images/${val.avatar}" alt="">
+							</figure>
+							<div class="friend-name">
+								<div class="more">
+									<div class="more-post-optns">
+										<i class="ti-more-alt"></i>
+										<ul>
+											<li class="bad-report"><i class="fa fa-flag"></i>Report Post</li>
+											<li><i class="fa fa-address-card-o"></i>Boost This Post</li>
+											<li><i class="fa fa-clock-o"></i>Schedule Post</li>
+											<li><i class="fa fa-wpexplorer"></i>Select as featured</li>
+											<li><i class="fa fa-bell-slash-o"></i>Turn off Notifications</li>
+										</ul>
+									</div>
+								</div>
+								<ins><a href="https://localhost:7013/Home/TrangCaNhan?taikhoan=${val.taiKhoan}" title="">${val.taiKhoan}</a>_ ${val.idpost} Post Album</ins>
+								<span><i class="fa fa-globe"></i> published: ${val.ngayTao} </span>
+							</div>
+							<div class="post-meta">
+								<p>
+										${val.noiDung}
+								</p>
+								<figure>
+									<div class="img-bunch">
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<figure>
+													<a href="#" title="" data-toggle="modal" data-target="#img-comt">
+														<img src="../Layout/images/${val.anh}" alt="">
+													</a>
+												</figure>
+											</div>
+										</div>
+									</div>
+
+								</figure>
+								<div class="we-video-info">
+									<ul>
+										<li>
+											<span class="views" title="views">
+												<i class="fa fa-eye"></i>
+												<ins>1.2k</ins>
+											</span>
+										</li>
+										<li>
+											<div onclick="GetLike('${val.idpost}') ; ThemLike('${val.idpost}','${val.taiKhoan}')" id="btn[${val.idpost}]" style="cursor: pointer;" title="Like/Dislike">♡<span>Like</span></div>
+											<div onclick="GetLike('${val.idpost}') ;  XoaLike('${val.idpost}','${val.taiKhoan}')" id="btn[${val.idpost}]0" style="display:none;cursor: pointer;" title="Dislike/Like">♥<span>DisLike</span></div>
+
+										</li>
+										<li>
+											<span class="comment" title="Comments">
+												<i class="fa fa-commenting"></i>
+												<ins>52</ins>
+											</span>
+										</li>
+
+										<li>
+											<span>
+													<a onclick="GetShare('${val.idpost}')" class="share-pst" title="Share">
+													<i class="fa fa-share-alt"></i>
+												</a>
+												<ins>20</ins>
+											</span>
+										</li>
+									</ul>
+									<div class="users-thumb-list">
+										<a data-toggle="tooltip" title="Anderw" href="#">
+											<img alt="" src="../Layout/images/resources/userlist-1.jpg">
+										</a>
+										<a data-toggle="tooltip" title="frank" href="#">
+											<img alt="" src="../Layout/images/resources/userlist-2.jpg">
+										</a>
+										<a data-toggle="tooltip" title="Sara" href="#">
+											<img alt="" src="../Layout/images/resources/userlist-3.jpg">
+										</a>
+										<a data-toggle="tooltip" title="Amy" href="#">
+											<img alt="" src="../Layout/images/resources/userlist-4.jpg">
+										</a>
+										<a data-toggle="tooltip" title="Ema" href="#">
+											<img alt="" src="../Layout/images/resources/userlist-5.jpg">
+										</a>
+
+										<span><a href="https://localhost:7013/Home/Like?tk=${val.idpost}">See more Like ++</a></span>
+									</div>
+								</div>
+							</div>
+							<div class="coment-area" style="display: block;">
+								<ul id="${val.idpost}" class="we-comet">
+
+								</ul>
+								<ul class="we-comet">
+									<li>
+										<a href="#" title="" class="showmore underline">more comments+</a>
+									</li>
+									<li class="post-comment">
+										<div class="comet-avatar">
+											<img src=("../Layout/images/"+ avatar) alt="">
+										</div>
+										<div>
+										<form onsubmit="myFunction(event)">
+											<textarea id ="nd[${val.idpost}]" placeholder="Post your comment"></textarea>
+											<button onclick="ThemComment('${val.idpost}','${val.taiKhoan}')">Send</button>
+										</form>
+
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+					`
+					}
+					GetComment(val.idpost);
+
+					setTimeout(function () {
+							GetLike(val.idpost);
+						}, 400);
+
+
+
+				});
+				$('#display1').append(display);
+
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	//phia gui yeu cau
+	function GetPostFriend() {
+		var tknhan = '';
+		var str = '';
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api3/' + '@tk',
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					tknhan = val.tknhan;
+					str = val.trangThai;
+					if( str == 1 ){
+						GetPostBy(tknhan);
+					}
+
+
+				});
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	//phia nhan yeu cau
+	function GetPostFriend1() {
+		var tkgui = '';
+		var str = '';
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api3/0/' + '@tk',
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					tkgui = val.tkgui;
+					str = val.trangThai;
+					if( str == 1 ){
+
+						GetPostBy1(tkgui);
+					}
+
+				});
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	function myFunction(event) {
+		  event.preventDefault(); // ngăn chặn hành vi mặc định của form
+		  // xử lý dữ liệu ở đây
+		  return false; // ngăn chặn form gửi dữ liệu đi
+		}
+
+	
+	function GetShare(id) {
+		var str = '';
+		$.ajax({
+			type: 'GET',
+			url: 'https://localhost:7013/api/api4/0/' + id,
+			dataType: 'json',
+			success: function (data) {
+				$.each(data, function (key, val) {
+					str += `
+						<div class="post-comt-box">
+							<form method="post">
+								<input type="text" placeholder="Search Friends, Pages, Groups, etc....">
+								<textarea placeholder="Say something about this..."></textarea>
+								<div class="add-smiles">
+									<span title="add icon" class="em em-expressionless"></span>
+									<div class="smiles-bunch">
+										<i class="em em---1"></i>
+										<i class="em em-smiley"></i>
+										<i class="em em-anguished"></i>
+										<i class="em em-laughing"></i>
+										<i class="em em-angry"></i>
+										<i class="em em-astonished"></i>
+										<i class="em em-blush"></i>
+										<i class="em em-disappointed"></i>
+										<i class="em em-worried"></i>
+										<i class="em em-kissing_heart"></i>
+										<i class="em em-rage"></i>
+										<i class="em em-stuck_out_tongue"></i>
+									</div>
+								</div>
+
+								<button type="submit"></button>
+							</form>
+						</div>
+						<figure><img src="../Layout/images/${val.anh}" alt=""></figure>
+						<div class="friend-info">
+							<figure>
+								<img alt="" src="../Layout/images/${val.avatar}">
+							</figure>
+							<div class="friend-name">
+								<ins><a title="" href="time-line.html">${val.taiKhoan}</a> Post </ins>
+								<span>${val.noiDung}</span>
+							</div>
+						</div>
+						<div class="share-to-other">
+							<span>Share to other socials</span>
+							<ul>
+								<li><a class="facebook-color" href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
+								<li><a class="twitter-color" href="#" title=""><i class="fa fa-twitter-square"></i></a></li>
+								<li><a class="dribble-color" href="#" title=""><i class="fa fa-dribbble"></i></a></li>
+								<li><a class="instagram-color" href="#" title=""><i class="fa fa-instagram"></i></a></li>
+								<li><a class="pinterest-color" href="#" title=""><i class="fa fa-pinterest-square"></i></a></li>
+							</ul>
+						</div>
+						<div class="copy-email">
+							<span>Copy & Email</span>
+							<ul>
+								<li><a href="#" title="Copy Post Link"><i class="fa fa-link"></i></a></li>
+								<li><a href="#" title="Email this Post"><i class="fa fa-envelope"></i></a></li>
+							</ul>
+						</div>
+						<div class="we-video-info">
+							<ul>
+								<li>
+									<span title="" data-toggle="tooltip" class="views" data-original-title="views">
+										<i class="fa fa-eye"></i>
+										<ins>1.2k</ins>
+									</span>
+								</li>
+								<li>
+									<span title="" data-toggle="tooltip" class="views" data-original-title="views">
+										<i class="fa fa-share-alt"></i>
+										<ins>20k</ins>
+									</span>
+								</li>
+							</ul>
+							<button onclick="SharePost('${val.taiKhoan}' ,'${val.noiDung}' , '${val.anh}')" class="main-btn color" data-ripple="">Submit</button>
+						</div>
+
+							`
+
+				});
+				$('#share').html(str);
+
+			},
+
+			Error: function (xhr) {
+				alert(xhr.resposeText)
+			},
+
+		});
+	}
+
+	
+	function SharePost(tk , nd , anh){
+		let formData = {
+            TaiKhoan: '@tk',
+            Avatar: '@avatar',
+			NoiDung : 'Share from ' + tk + ' : ' + nd,
+			Anh : anh ,
+			TrangThai : 'Public',
+
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "https://localhost:7013/api/api4/",
+			data: JSON.stringify(formData),
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (response) {
+				location.reload();
+
+			},
+			error: function (request, status, error) {
+				alert(request.responseText);
+			},
+		});
+	}
+
+
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+@foreach (var item in Model)
+{
+	<script>
+		GetLike(@item.Idpost);
+		GetComment(@item.Idpost);
+	</script>
+}
+
+@for (int i = 0; i < 1; i++)
+{
+	<script>
+		GetPostFriend();
+		GetPostFriend1();
+	</script>
+}

@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Like";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+}
+
+@{
+	var tk = Context.Session.GetString("DN");
+	var avatar = Context.Session.GetString("Avatar");
+
+}
+
+
+
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Like>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="central-meta padding30">
+									<div class="row">
+								@foreach (var item in Model)
+									{
+										<div class="col-lg-2 col-md-4 col-sm-4">
+											<div class="group-box">
+												<figure><img src="@Url.Content("../Layout/images/"+ item.Avatar)" alt=""></figure>
+												<a asp-controller="Home" asp-action="TrangCaNhan" asp-route-taikhoan="@item.TaiKhoan" title="">@item.TaiKhoan</a>
+												<span>Like: @item.NgayTao</span>
+												<button><a asp-controller="Home" asp-action="TrangCaNhan" asp-route-taikhoan="@item.TaiKhoan">View Profile</a></button>
+											</div>
+										</div>
+									}
+									</div>
+								</div>
